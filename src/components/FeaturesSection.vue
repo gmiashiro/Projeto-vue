@@ -50,9 +50,7 @@
 </template>
 
 <style scoped>
-.features-section {
-  /* A classe py-5 do Bootstrap já dá um bom espaçamento (padding) no eixo Y */
-}
+
 .card {
   border: none; /* Remove a borda padrão para um look mais limpo */
   transition: transform 0.2s ease-in-out;

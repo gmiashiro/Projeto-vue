@@ -9,10 +9,8 @@ import AppFooter from './components/AppFooter.vue';
   <div class="d-flex flex-column min-vh-100">
     <AppHeader />
     <main>
-      <HeroSection />
-      <FeaturesSection />
+      <RouterView />
     </main>
-
     <AppFooter />
   </div>
 </template>

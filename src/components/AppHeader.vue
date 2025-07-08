@@ -7,10 +7,10 @@ import logoImage from '@/assets/logo.svg';
   <header>
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
       <div class="container">
-        <a class="navbar-brand fw-bold d-flex align-items-center" href="#">
+        <RouterLink to="/" class="navbar-brand fw-bold d-flex align-items-center">
           <img :src="logoImage" alt="ProjectBase Logo" class="logo-img me-2" />
           <span>ProjectBase</span>
-        </a>
+        </RouterLink>
 
         <div class="collapse navbar-collapse">
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
@@ -27,8 +27,8 @@ import logoImage from '@/assets/logo.svg';
         </div>
         
         <div class="d-flex">
-          <button class="btn btn-outline-primary me-2" type="button">Entrar</button>
-          <button class="btn btn-primary" type="button">Cadastre-se</button>
+          <RouterLink to="/login" class="btn btn-outline-primary me-2">Entrar</RouterLink>
+          <RouterLink to="/register" class="btn btn-primary">Cadastre-se</RouterLink>
         </div>
       </div>
     </nav>

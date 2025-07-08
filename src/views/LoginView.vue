@@ -37,7 +37,7 @@ const handleLogin = () => {
               <button type="submit" class="btn btn-primary w-100">Entrar</button>
             </form>
             <div class="mt-3 text-center">
-              <a href="#" class="text-muted small">Esqueci a senha</a>
+              <RouterLink to="/forgot-password" class="text-muted small">Esqueci a senha</RouterLink>
             </div>
           </div>
           <div class="card-footer text-center py-3">

@@ -1,6 +1,18 @@
 <script setup lang="ts">
 // Vamos usar a mesma imagem, mas agora como um logo
 import logoImage from '@/assets/logo.svg';
+import { RouterLink, useRouter } from 'vue-router';
+import { useAuthStore } from '@/stores/authStore';
+
+// INSTANCIAMOS A STORE E O ROUTER
+const authStore = useAuthStore();
+const router = useRouter();
+
+// CRIAMOS A FUNÇÃO DE LOGOUT
+const handleLogout = () => {
+  authStore.logout(); // Chama a ação de logout da store
+  router.push('/login'); // Redireciona o usuário para a página de login
+};
 </script>
 
 <template>
@@ -13,12 +25,9 @@ import logoImage from '@/assets/logo.svg';
         </RouterLink>
 
         <div class="collapse navbar-collapse">
-          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0" v-if="authStore.isLoggedIn">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">Home</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="#">Dashboard</a>
+              <RouterLink to="/dashboard" class="nav-link">Dashboard</RouterLink>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Profile</a>
@@ -27,8 +36,12 @@ import logoImage from '@/assets/logo.svg';
         </div>
         
         <div class="d-flex">
-          <RouterLink to="/login" class="btn btn-outline-primary me-2">Entrar</RouterLink>
-          <RouterLink to="/register" class="btn btn-primary">Cadastre-se</RouterLink>
+          <button v-if="authStore.isLoggedIn" @click="handleLogout" class="btn btn-outline-primary">Sair</button>
+          
+          <template v-else>
+            <RouterLink to="/login" class="btn btn-outline-primary me-2">Entrar</RouterLink>
+            <RouterLink to="/register" class="btn btn-primary">Cadastre-se</RouterLink>
+          </template>
         </div>
       </div>
     </nav>

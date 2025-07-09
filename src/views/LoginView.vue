@@ -1,20 +1,21 @@
 <script setup lang="ts">
 import { ref } from 'vue';
-import { RouterLink } from 'vue-router';
+import { RouterLink, useRouter } from 'vue-router'; // importa o useRouter
+import { useAuthStore } from '@/stores/authStore'; // Importa a store
 
 // Usamos ref para criar variáveis reativas que irão armazenar os valores dos inputs
 const email = ref('');
 const password = ref('');
 
+const authStore = useAuthStore(); // Cria uma instância da store para usar no componente
+const router = useRouter(); // Cria uma instância do router
+
 // Função que será chamada ao submeter o formulário
 const handleLogin = () => {
-  // Por enquanto, apenas exibimos os dados no console
-  // No futuro, aqui você faria a chamada para a sua API de backend
-  console.log('Tentativa de Login com:', {
-    email: email.value,
-    password: password.value,
-  });
-  alert('Login submetido! Verifique o console.');
+  // Chama a ação de login da store com os dados do formulário
+  authStore.login(email.value, password.value);
+
+  router.push('/');
 };
 </script>
 

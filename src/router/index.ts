@@ -5,6 +5,7 @@ import LoginView from '@/views/LoginView.vue'
 import RegisterView from '@/views/RegisterView.vue'
 import ForgotPasswordView from '@/views/ForgotPasswordView.vue'
 import DashboardView from '@/views/DashboardView.vue'
+import ProductsView from '@/views/ProductsView.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -34,6 +35,12 @@ const router = createRouter({
             name: 'dashboard',
             component: DashboardView,
             meta: { requiresAuth: true } // Adicionamos um 'meta' campo para marcar esta rota como protegida
+        },
+        {
+            path: '/products',
+            name: 'products',
+            component: ProductsView,
+            meta: { requiresAuth: true } // Marcado como rota protegida
         }
     ]
 })

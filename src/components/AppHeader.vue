@@ -32,6 +32,9 @@ const handleLogout = () => {
             <li class="nav-item">
               <a class="nav-link" href="#">Profile</a>
             </li>
+            <li class="nav-item">
+              <RouterLink to="/products" class="nav-link">Produtos</RouterLink>
+            </li>
           </ul>
         </div>
         

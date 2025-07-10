@@ -10,6 +10,8 @@ const products = ref<Product[]>([
     { id: 4, name: 'Headset 7.1 Surround', description: 'Fone de ouvido com som surround 7.1 virtual para imersão total.', price: 450.75, stock: 22 },
 ])
 
+export type ProductPayload = Omit<Product, 'id'>
+
 // Criamos um "serviço" que exporta funções para interagir com os dados. 
 export const productService = {
     // Função para obter todos os produtos
@@ -20,6 +22,36 @@ export const productService = {
     // Função para obter um produto por ID (útil para a página de edição)
     getProductById: (id: number) => {
         return products.value.find(p => p.id === id)
+    },
+
+    createProduct: (newProductData: ProductPayload) => {
+        const newId = Math.max(...products.value.map(p => p.id)) + 1
+        const productWithId: Product = {
+            id: newId,
+            ...newProductData
+        }
+        products.value.push(productWithId)
+        console.log('Produto adicionado:', productWithId)
+        return productWithId
+    },
+
+    updateProduct: (id: number, productData: ProductPayload) => {
+        const index = products.value.findIndex(p => p.id === id)
+        if (index !== -1) {
+            products.value[index] = { id, ...productData }
+            console.log('Produto atualizado:', products.value[index])
+            return products.value[index]
+        }
+    },
+
+    deleteProduct: (id: number) => {
+        const index = products.value.findIndex(p => p.id === id)
+        if (index !== -1) {
+            const deletedProduct = products.value.splice(index, 1)
+            console.log('Produto excluído:', deletedProduct[0])
+            return true
+        }
+        return false
     }
 
     // Aqui será adicionado o createProduct, updateProduct, deleteProduct

@@ -6,6 +6,7 @@ import RegisterView from '@/views/RegisterView.vue'
 import ForgotPasswordView from '@/views/ForgotPasswordView.vue'
 import DashboardView from '@/views/DashboardView.vue'
 import ProductsView from '@/views/ProductsView.vue'
+import ProductFormView from '@/views/ProductFormView.vue'
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
@@ -41,23 +42,35 @@ const router = createRouter({
             name: 'products',
             component: ProductsView,
             meta: { requiresAuth: true } // Marcado como rota protegida
+        },
+        {
+            path: '/products/new',
+            name: 'product-new',
+            component: ProductFormView,
+            meta: { requiresAuth: true }
+        },
+        {
+            path: '/products/edit/:id', // Rota para o formulário de edição com ID dinâmico
+            name: 'product-edit',
+            component: ProductFormView,
+            meta: { requiresAuth: true }
         }
     ]
 })
 
 // 4. A GUARDA DE NAVEGAÇÃO
 router.beforeEach((to, from, next) => {
-  // Pegamos a store de autenticação
-  const authStore = useAuthStore();
+    // Pegamos a store de autenticação
+    const authStore = useAuthStore();
 
-  // Verificamos se a rota de destino requer autenticação E se o usuário NÃO está logado
-  if (to.meta.requiresAuth && !authStore.isLoggedIn) {
-    // Se for o caso, redirecionamos para a página de login
-    next({ name: 'login' });
-  } else {
-    // Caso contrário, permitimos que a navegação continue normalmente
-    next();
-  }
+    // Verificamos se a rota de destino requer autenticação E se o usuário NÃO está logado
+    if (to.meta.requiresAuth && !authStore.isLoggedIn) {
+        // Se for o caso, redirecionamos para a página de login
+        next({ name: 'login' });
+    } else {
+        // Caso contrário, permitimos que a navegação continue normalmente
+        next();
+    }
 });
 
 export default router

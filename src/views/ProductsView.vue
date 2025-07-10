@@ -7,12 +7,24 @@ import type { Product } from '@/interfaces/Product'
 // Criamos uma ref local para armazenar a lista de produtos que virá do serviço
 const productList = ref < Product[] > ([])
 
+const loadProducts = () => {
+    productList.value = productService.getProducts()
+}
 // onMounted é um "lifecycle hook" do vue. O código dentro dele é executado assim que o componetne é montado (exibido) na tela.
 // Buscar dados
-onMounted(() => {
-    // Chamamos nosso serviço e preenchemos a lista local
-    productList.value = productService.getProducts()
-})
+onMounted(loadProducts)
+
+const handleDeleteProduct = (id: number) => {
+  // Usamos o 'confirm' do navegador para uma confirmação simples
+  if (window.confirm('Tem certeza de que deseja excluir este produto?')) {
+    productService.deleteProduct(id)
+    // Recarregamos a lista para refletir a exclusão.
+    // Como nossa lista no serviço é reativa, em um cenário mais complexo,
+    // a lista no componente poderia se atualizar automaticamente.
+    // Mas para garantir, recarregamos aqui.
+    loadProducts()
+  }
+}
 </script>
 
 <template>
@@ -40,8 +52,8 @@ onMounted(() => {
                         <td>R$ {{ product.price.toFixed(2) }}</td>
                         <td>{{ product.stock }}</td>
                         <td class="text-end">
-                            <button class="btn btn-sm btn-outline-secondary me-2">Editar</button>
-                            <button class="btn btn-sm btn-outline-danger">Excluir</button>
+                            <RouterLink :to="`/products/edit/${product.id}`" class="btn btn-sm btn-outline-secondary me-2">Editar</RouterLink>
+                            <button @click="handleDeleteProduct(product.id)" class="btn btn-sm btn-outline-danger">Excluir</button>
                         </td>
                     </tr>
                 </tbody>

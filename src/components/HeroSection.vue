@@ -11,7 +11,7 @@
           <p class="lead mb-4">
             Nossa plataforma ajuda você a gerenciar tarefas, colaborar com sua equipe e entregar projetos no prazo.
           </p>
-          <a href="#" class="btn btn-primary btn-lg">Começar agora</a>
+          <RouterLink to="/register" class="btn btn-primary btn-lg">Começar agora</RouterLink>
         </div>
       </div>
     </div>
